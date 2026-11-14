@@ -13,11 +13,17 @@ available in the [Dockerfile](./Dockerfile).
   build environment.
 - **Working directory:** `/home`.
 
-To build the image for amd64:
+To build and push a multi-platform image with Buildx:
 
 ```sh
-docker build --platform linux/amd64 -t mateuszokroj1/ubuntu-dev-base-image:latest .
+docker buildx build \
+  --platform linux/amd64,linux/arm64 \
+  -t mateuszokroj1/ubuntu-dev-base:latest \
+  --push .
 ```
+
+The deployment workflow builds and pushes both platforms to the same tag. It
+sets up QEMU for ARM64 emulation and Buildx for the multi-platform build.
 
 ## Technologies and versions
 
